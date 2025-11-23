@@ -8,7 +8,7 @@ import requests
 
 logger = logging.getLogger(__name__)
 
-def clone_all_repos(username):
+def clone_all_repos_github(username):
     # remove old dir if exists
     if os.path.exists(username):
         shutil.rmtree(username)
@@ -83,7 +83,6 @@ def parse_arguments():
         help="Provide verbose output")
     parser.add_argument(
         '-u', '--user', required=True,
-        default="rozie",
         help="GitHub user name"
     )
     args = parser.parse_args()
@@ -98,7 +97,7 @@ def main():
     else:
         logging.basicConfig(level=logging.INFO)
     user = args.user
-    repos_count, fail_count = clone_all_repos(user)
+    repos_count, fail_count = clone_all_repos_github(user)
     logger.debug(f"Fetched {repos_count} repositories to '{user}/'")
     if fail_count:
         logger.error("{fail_count} errors occured")
